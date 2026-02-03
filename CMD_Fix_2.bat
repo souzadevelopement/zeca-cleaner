@@ -1,0 +1,19 @@
+@echo off
+echo Executando verificação de integridade do sistema...
+sfc /scannow
+echo.
+echo Executando verificação do disco rígido...
+chkdsk C: /f /r
+echo.
+echo Limpando o cache do sistema...
+ipconfig /flushdns
+echo.
+echo Reiniciando o serviço do Windows Update...
+net stop wuauserv
+net start wuauserv
+echo.
+echo Verificando e reparando arquivos do sistema corrompidos...
+DISM /Online /Cleanup-Image /RestoreHealth
+echo.
+echo Diagnóstico concluído. Pressione qualquer tecla para fechar esta janela...
+pause > nul
